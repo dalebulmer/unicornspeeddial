@@ -68,7 +68,6 @@ class UnicornDialer extends StatefulWidget {
   final Color parentButtonBackground;
   final List<UnicornButton> childButtons;
   final int animationDuration;
-  final int mainAnimationDuration;
   final double childPadding;
   final Color backgroundColor;
   final Function onMainButtonPressed;
@@ -86,7 +85,6 @@ class UnicornDialer extends StatefulWidget {
         this.parentHeroTag = "parent",
         this.finalButtonIcon,
         this.animationDuration = 180,
-		this.mainAnimationDuration = 200,
         this.childPadding = 4.0,
         this.hasNotch = false})
       : assert(parentButton != null);
@@ -108,7 +106,7 @@ class _UnicornDialer extends State<UnicornDialer>
         duration: Duration(milliseconds: widget.animationDuration));
 
     this._parentController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: widget.mainAnimationDuration));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
 
     super.initState();
   }
@@ -162,6 +160,7 @@ class _UnicornDialer extends State<UnicornDialer>
               child: FloatingActionButton(
                   isExtended: false,
                   heroTag: widget.parentHeroTag,
+                  mini: true,
                   backgroundColor: widget.parentButtonBackground,
                   onPressed: () {
                     mainActionButtonOnPressed();
@@ -270,7 +269,7 @@ class _UnicornDialer extends State<UnicornDialer>
       });
 
       var unicornDialWidget = Container(
-          margin: widget.hasNotch ? EdgeInsets.only(bottom: 15.0) : null,
+          margin: widget.hasNotch ? EdgeInsets.only(bottom: 33.0) : null,
           height: double.infinity,
           child: Stack(
             //fit: StackFit.expand,
@@ -291,7 +290,8 @@ class _UnicornDialer extends State<UnicornDialer>
               child: Container(
                 color: widget.backgroundColor,
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                height: 300.0,
+                //MediaQuery.of(context).size.height,
               )));
 
       return widget.hasBackground
@@ -299,7 +299,8 @@ class _UnicornDialer extends State<UnicornDialer>
           alignment: Alignment.topCenter,
           overflow: Overflow.visible,
           children: [
-            Positioned(right: -16.0, bottom: -16.0, child: modal),
+//            Positioned(right: -16.0, bottom: -16.0, child: modal),
+            Positioned(right:0.0, bottom: -16.0, child: modal),
             unicornDialWidget
           ])
           : unicornDialWidget;
